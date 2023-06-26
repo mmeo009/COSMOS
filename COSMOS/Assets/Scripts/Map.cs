@@ -19,9 +19,9 @@ public class Map : MonoBehaviour
 
     private void Update()
     {
-        if(this.transform.position.x <= -19 - speed)
+        if(this.transform.position.x <= -19)
         {
-            mapSystem.GetComponent<MapGenerator>().MapGen(level);
+            mapSystem.GetComponent<MapGenerator>().MapGen(level, this.transform.position.x + 19);
             Destroy(this.gameObject);
         }
     }

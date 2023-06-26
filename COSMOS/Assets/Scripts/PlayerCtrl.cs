@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerCtrl : MonoBehaviour
@@ -9,6 +10,17 @@ public class PlayerCtrl : MonoBehaviour
     public GameManager GM;
     public float jumpForce = 4f;
     public float rayDistance = 2f;
+    //public float jumpSpeed = 8f;
+    public bool isJumping = false;
+
+
+    public Transform groundCheck;
+    private bool isTouchingGround;
+    public LayerMask groundLayer;
+    public float groundCheckRadius;
+
+    
+ 
     private void Awake()
     {
         GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
@@ -17,6 +29,10 @@ public class PlayerCtrl : MonoBehaviour
     }
     private void Update()
     {
+
+        isTouchingGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius,groundLayer);
+     
+
         Vector2 rayOrigin = transform.position;
         Vector2 rayEnd = rayOrigin + new Vector2(0f, -rayDistance);
         // Ray를 그리기
@@ -32,6 +48,16 @@ public class PlayerCtrl : MonoBehaviour
             }
         }
 
+        if(Input.GetButtonDown("Jump")&& !isJumping )
+        {
+            Jump();
+        }
+
+        bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        anim.SetBool("IsGrounded", isGrounded);
+
+
+
         if(Input.GetKeyDown(KeyCode.D))
         {
             if (GM.dash == false)
@@ -39,5 +65,45 @@ public class PlayerCtrl : MonoBehaviour
                 GM.dash = true;
             }
         }
+
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+
+        if (isTouchingGround == false)
+        {
+            anim.SetBool("jump", true);
+        }
+
+        if (isTouchingGround == true)
+        {
+            anim.SetBool("jump", false);
+        }
+
+
+
+
+
+
+
     }
+    
+    private void Jump()
+    {
+        isJumping = true;
+        rb.velocity = new Vector2 (rb.velocity.x, jumpForce);
+        anim.SetTrigger("Jump");
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // 땅과 충돌감지
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isJumping = false;
+        }
+    }
+
 }

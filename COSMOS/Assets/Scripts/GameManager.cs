@@ -8,9 +8,12 @@ public class GameManager : MonoBehaviour
     public float speed;
     public float dashTimer = 1.0f;
     public bool dash = false;
+    public bool isJumping = false;
+
     private void Awake()
     {
         dash = false;
+       
     }
     private void Update()
     {
@@ -29,5 +32,6 @@ public class GameManager : MonoBehaviour
                 dashTimer = 1.0f;
             }
         }
+
     }
 }

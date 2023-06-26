@@ -291,9 +291,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc2b95b965a6f1e4cad6d69a6699cd2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GM: {fileID: 0}
-  jumpForce: 10
+  GM: {fileID: 836515401}
+  jumpForce: 5
   rayDistance: 1.5
+  isJumping: 0
+  groundCheck: {fileID: 2133355087}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  groundCheckRadius: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

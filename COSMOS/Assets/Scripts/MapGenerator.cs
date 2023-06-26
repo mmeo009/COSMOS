@@ -19,7 +19,7 @@ public class MapGenerator : MonoBehaviour
             case 1:
                 int Lv1num = Random.Range(0, level_1.Length);
                 GameObject temp = (GameObject)Instantiate(level_1[Lv1num]);
-                temp.transform.position = new Vector2 (20,0);
+                temp.transform.position = new Vector2 (19 + speed,0);
                 Debug.Log("1·¦ ¸¸µë È÷È÷");
                 break;
         }

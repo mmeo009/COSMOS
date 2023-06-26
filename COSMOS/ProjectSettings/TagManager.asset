@@ -6,6 +6,7 @@ TagManager:
   tags:
   - MapGen
   - Ground
+  - GM
   layers:
   - Default
   - TransparentFX

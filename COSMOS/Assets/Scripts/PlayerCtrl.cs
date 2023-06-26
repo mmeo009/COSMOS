@@ -6,10 +6,12 @@ public class PlayerCtrl : MonoBehaviour
 {
     Rigidbody2D rb;
     Animator anim;
+    public GameManager GM;
     public float jumpForce = 4f;
     public float rayDistance = 2f;
     private void Awake()
     {
+        GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
@@ -27,6 +29,14 @@ public class PlayerCtrl : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 Debug.DrawLine(rayOrigin, hit.point, Color.green);
                 Debug.Log(hit.collider.gameObject.name);
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.D))
+        {
+            if (GM.dash == false)
+            {
+                GM.dash = true;
             }
         }
     }

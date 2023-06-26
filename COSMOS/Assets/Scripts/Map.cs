@@ -5,15 +5,17 @@ using UnityEngine;
 public class Map : MonoBehaviour
 {
     public GameObject mapSystem;
+    public GameManager GM;
     public int level;
     float speed;
     private void Awake()
     {
+        GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
         mapSystem = GameObject.FindGameObjectWithTag("MapGen").gameObject;
     }
     private void FixedUpdate()
     {
-        speed = mapSystem.GetComponent<MapGenerator>().speed;
+        speed = -GM.speed;
         this.transform.Translate(Vector3.right * speed);
     }
 

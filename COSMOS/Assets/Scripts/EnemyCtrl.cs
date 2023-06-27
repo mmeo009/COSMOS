@@ -26,4 +26,11 @@ public class EnemyCtrl : MonoBehaviour
         Destroy(gameObject);        //적을 처치하는 로직~
         isDefeated = true;
     }
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.GetComponent<PlayerCtrl>().GetDMG(1);
+        }
+    }
 }

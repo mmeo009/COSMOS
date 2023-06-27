@@ -14,6 +14,8 @@ public class PlayerCtrl : MonoBehaviour
     private bool isTouchingGround;
     public LayerMask groundLayer;
 
+    public int HP = 5;
+
     public Collider2D[] enemies;
     public float shoutTimer = 0;
 
@@ -28,6 +30,7 @@ public class PlayerCtrl : MonoBehaviour
     {
         if(shoutTimer >= 0)
         shoutTimer -= Time.fixedDeltaTime;
+        anim.SetFloat("Speed", GM.speed + 1);
     }
     private void Update()
     {
@@ -38,12 +41,11 @@ public class PlayerCtrl : MonoBehaviour
             Jump();
         }
 
-        bool isGrounded = Physics2D.OverlapCircle(this.transform.position, 0.2f, groundLayer);
-        anim.SetBool("IsGrounded", isGrounded);
+        //anim.SetBool("IsGrounded", isTouchingGround);
 
         if (isTouchingGround == true)
         {
-            anim.SetBool("jump", false);
+            //anim.SetBool("jump", false);
             jumpCount = 0;
         }
 
@@ -69,7 +71,7 @@ public class PlayerCtrl : MonoBehaviour
     {
         jumpCount++;
         rb.velocity = new Vector2 (rb.velocity.x, jumpForce);
-        anim.SetTrigger("Jump");
+        //anim.SetTrigger("Jump");
     }
     private void Shout()
     {
@@ -83,5 +85,13 @@ public class PlayerCtrl : MonoBehaviour
         }
         //audioSource.PlayOneShot(shoutClip);
         shoutTimer = 1.5f;
+    }
+    public void GetDMG(int dmg)
+    {
+        HP -= dmg;
+        if(HP <= 0)
+        {
+            GM.GameOver();
+        }
     }
 }

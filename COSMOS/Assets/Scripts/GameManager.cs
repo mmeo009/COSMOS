@@ -13,11 +13,10 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         dash = false;
-       
     }
     private void Update()
     {
-        normalSpeed += 0.001f * Time.deltaTime;
+        normalSpeed += 0.01f * Time.deltaTime;
         if(dash == false)
         {
             speed = normalSpeed;
@@ -33,5 +32,10 @@ public class GameManager : MonoBehaviour
             }
         }
 
+    }
+
+    public void GameOver()
+    {
+        // 게임오버
     }
 }

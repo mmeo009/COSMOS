@@ -23,7 +23,7 @@ public class Map : MonoBehaviour
     {
         if(this.transform.position.x <= -20)
         {
-            mapSystem.GetComponent<MapGenerator>().MapGen(level, this.transform.position.x + 20);
+            mapSystem.GetComponent<MapGenerator>().MapGen(level, this.transform.position.x + 60);
             Destroy(this.gameObject);
         }
     }

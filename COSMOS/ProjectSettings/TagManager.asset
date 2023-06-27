@@ -7,11 +7,12 @@ TagManager:
   - MapGen
   - Ground
   - GM
+  - Monster
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 

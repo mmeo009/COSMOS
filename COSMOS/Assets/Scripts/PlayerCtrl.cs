@@ -8,57 +8,47 @@ public class PlayerCtrl : MonoBehaviour
     Rigidbody2D rb;
     Animator anim;
     public GameManager GM;
-    public float jumpForce = 4f;
-    public float rayDistance = 2f;
-    //public float jumpSpeed = 8f;
-    public bool isJumping = false;
-
-
-    public Transform groundCheck;
+    //public AudioClip shoutClip;
+    public float jumpForce = 5.324f;
+    public int jumpCount = 0;
     private bool isTouchingGround;
     public LayerMask groundLayer;
-    public float groundCheckRadius;
 
-    
- 
+    public Collider2D[] enemies;
+    public float shoutTimer = 0;
+
     private void Awake()
     {
+        //audioSource = GetComponent<AudioSource>();
         GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
+    private void FixedUpdate()
+    {
+        if(shoutTimer >= 0)
+        shoutTimer -= Time.fixedDeltaTime;
+    }
     private void Update()
     {
+        isTouchingGround = Physics2D.OverlapCircle(this.transform.position, 1.8f, groundLayer);
 
-        isTouchingGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius,groundLayer);
-     
-
-        Vector2 rayOrigin = transform.position;
-        Vector2 rayEnd = rayOrigin + new Vector2(0f, -rayDistance);
-        // Ray를 그리기
-        Debug.DrawLine(rayOrigin, rayEnd, Color.magenta);
-        if (Input.GetKeyDown(KeyCode.Space)) //점프
-        {
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, rayDistance);
-            if (hit.collider != null && hit.collider.CompareTag("Ground"))
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                Debug.DrawLine(rayOrigin, hit.point, Color.green);
-                Debug.Log(hit.collider.gameObject.name);
-            }
-        }
-
-        if(Input.GetButtonDown("Jump")&& !isJumping )
+        if(Input.GetButtonDown("Jump")&& jumpCount <= 4)
         {
             Jump();
         }
 
-        bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        bool isGrounded = Physics2D.OverlapCircle(this.transform.position, 0.2f, groundLayer);
         anim.SetBool("IsGrounded", isGrounded);
 
+        if (isTouchingGround == true)
+        {
+            anim.SetBool("jump", false);
+            jumpCount = 0;
+        }
 
 
-        if(Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D)) //으쌰으쌰
         {
             if (GM.dash == false)
             {
@@ -66,44 +56,32 @@ public class PlayerCtrl : MonoBehaviour
             }
         }
 
-
-        if (Input.GetButtonDown("Jump"))
+        if(Input.GetKeyDown(KeyCode.A))
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            if(shoutTimer <= 0)
+            {
+                Shout();
+            }
         }
-
-        if (isTouchingGround == false)
-        {
-            anim.SetBool("jump", true);
-        }
-
-        if (isTouchingGround == true)
-        {
-            anim.SetBool("jump", false);
-        }
-
-
-
-
-
-
-
     }
     
     private void Jump()
     {
-        isJumping = true;
+        jumpCount++;
         rb.velocity = new Vector2 (rb.velocity.x, jumpForce);
         anim.SetTrigger("Jump");
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void Shout()
     {
-        // 땅과 충돌감지
-        if (collision.gameObject.CompareTag("Ground"))
+        enemies = Physics2D.OverlapCircleAll(transform.position, 8f);
+        foreach (Collider2D coll in enemies)
         {
-            isJumping = false;
+            if (coll.gameObject.tag == "Monster")
+            {
+                coll.GetComponent<EnemyCtrl>().Defeat();
+            }
         }
+        //audioSource.PlayOneShot(shoutClip);
+        shoutTimer = 1.5f;
     }
-
 }

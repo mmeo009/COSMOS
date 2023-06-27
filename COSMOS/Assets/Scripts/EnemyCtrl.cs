@@ -5,40 +5,24 @@ using UnityEngine;
 
 public class EnemyCtrl : MonoBehaviour
 {
-
     public bool isDefeated = false;
-    public AudioClip shoutClip;
-    private AudioSource audioSource;
+    public AudioClip Die;
+    //private AudioSource audioSource;
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
+        //audioSource = GetComponent<AudioSource>();
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Shout();
-        }
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerCtrl player = collision.gameObject.GetComponent<PlayerCtrl>();
-            
         }
     }
-
-    private void Shout()
+    public void Defeat()
     {
-        audioSource.PlayOneShot(shoutClip);
-       
-    }
-
-    private void Defeat()
-    {
+        //audioSource.PlayOneShot(Die);
         Destroy(gameObject);        //적을 처치하는 로직~
         isDefeated = true;
     }

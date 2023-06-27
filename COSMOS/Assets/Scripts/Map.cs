@@ -21,9 +21,9 @@ public class Map : MonoBehaviour
 
     private void Update()
     {
-        if(this.transform.position.x <= -19)
+        if(this.transform.position.x <= -20)
         {
-            mapSystem.GetComponent<MapGenerator>().MapGen(level, this.transform.position.x + 19);
+            mapSystem.GetComponent<MapGenerator>().MapGen(level, this.transform.position.x + 20);
             Destroy(this.gameObject);
         }
     }

@@ -266,7 +266,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0637909, y: 0}
+  m_Offset: {x: -0.07432755, y: -0.04214643}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -277,7 +277,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2424182, y: 0.48}
+  m_Size: {x: 0.2213449, y: 0.37463382}
   m_EdgeRadius: 0
 --- !u!114 &250849037
 MonoBehaviour:
@@ -291,15 +291,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc2b95b965a6f1e4cad6d69a6699cd2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GM: {fileID: 836515401}
-  jumpForce: 5
-  rayDistance: 1.5
-  isJumping: 0
-  groundCheck: {fileID: 2133355087}
+  GM: {fileID: 0}
+  jumpForce: 5.324
+  jumpCount: 0
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
-  groundCheckRadius: 0
+    m_Bits: 8
+  enemies: []
+  shoutTimer: 1.5
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,7 +502,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1385512179846932213, guid: 3d4a29fad1c4eee4391356d652c7b512, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1385512179846932213, guid: 3d4a29fad1c4eee4391356d652c7b512, type: 3}
       propertyPath: m_LocalPosition.y
@@ -554,6 +553,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1675931765242191909, guid: 9410f1272eea0124a98fc20f654c7962, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675931765242191909, guid: 9410f1272eea0124a98fc20f654c7962, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6811665849848183739, guid: 9410f1272eea0124a98fc20f654c7962, type: 3}
       propertyPath: m_Name
       value: MapTest (2)
@@ -564,7 +571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6984444539203014989, guid: 9410f1272eea0124a98fc20f654c7962, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 38
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 6984444539203014989, guid: 9410f1272eea0124a98fc20f654c7962, type: 3}
       propertyPath: m_LocalPosition.y

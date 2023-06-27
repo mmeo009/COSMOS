@@ -8,7 +8,9 @@ public class PlayerCtrl : MonoBehaviour
     Rigidbody2D rb;
     Animator anim;
     public GameManager GM;
-    //public AudioClip shoutClip;
+
+    public AudioClip shoutClip, jumpClip, dashClip;
+    private AudioSource audioSource;
     public float jumpForce = 5.324f;
     public int jumpCount = 0;
     private bool isTouchingGround;
@@ -21,7 +23,7 @@ public class PlayerCtrl : MonoBehaviour
 
     private void Awake()
     {
-        //audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -31,6 +33,11 @@ public class PlayerCtrl : MonoBehaviour
         if(shoutTimer >= 0)
         shoutTimer -= Time.fixedDeltaTime;
         anim.SetFloat("Speed", GM.speed + 1);
+
+        if(this.transform.position.y <= -7)
+        {
+            GetDMG(5);
+        }
     }
     private void Update()
     {
@@ -55,6 +62,7 @@ public class PlayerCtrl : MonoBehaviour
             if (GM.dash == false)
             {
                 GM.dash = true;
+                audioSource.PlayOneShot(dashClip);
             }
         }
 
@@ -72,6 +80,7 @@ public class PlayerCtrl : MonoBehaviour
         jumpCount++;
         rb.velocity = new Vector2 (rb.velocity.x, jumpForce);
         //anim.SetTrigger("Jump");
+        audioSource.PlayOneShot(jumpClip);
     }
     private void Shout()
     {
@@ -83,12 +92,14 @@ public class PlayerCtrl : MonoBehaviour
                 coll.GetComponent<EnemyCtrl>().Defeat();
             }
         }
-        //audioSource.PlayOneShot(shoutClip);
+        audioSource.PlayOneShot(shoutClip);
         shoutTimer = 1.5f;
     }
     public void GetDMG(int dmg)
     {
+        audioSource.PlayOneShot(shoutClip);
         HP -= dmg;
+        Debug.Log(HP);
         if(HP <= 0)
         {
             GM.GameOver();

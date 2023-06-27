@@ -13,17 +13,10 @@ public class EnemyCtrl : MonoBehaviour
     {
         //audioSource = GetComponent<AudioSource>();
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            PlayerCtrl player = collision.gameObject.GetComponent<PlayerCtrl>();
-        }
-    }
-    public void Defeat()
+    public void Defeat() // 몬스터 주거용
     {
         //audioSource.PlayOneShot(Die);
-        Destroy(gameObject);        //적을 처치하는 로직~
+        Destroy(gameObject);
         isDefeated = true;
     }
     public void OnTriggerEnter2D(Collider2D collision)

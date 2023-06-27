@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCtrl : MonoBehaviour
 {
     Rigidbody2D rb;
     Animator anim;
     public GameManager GM;
+
+   
 
     public AudioClip shoutClip, jumpClip, dashClip;
     private AudioSource audioSource;
@@ -39,6 +43,14 @@ public class PlayerCtrl : MonoBehaviour
             GetDMG(5);
         }
     }
+
+   
+    
+   
+
+  
+        
+    
     private void Update()
     {
         isTouchingGround = Physics2D.OverlapCircle(this.transform.position, 1.8f, groundLayer);

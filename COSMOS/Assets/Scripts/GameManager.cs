@@ -9,10 +9,20 @@ public class GameManager : MonoBehaviour
     public float dashTimer = 1.0f;
     public bool dash = false;
     public bool isJumping = false;
+    public static GameManager Instance;
+    private bool isGameOver = false;
 
     private void Awake()
     {
         dash = false;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     private void Update()
     {
@@ -32,10 +42,16 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        
+
     }
 
     public void GameOver()
     {
-        // 게임오버
+        if (!isGameOver)
+        {
+            isGameOver = true;
+            Debug.Log("Game Over");
+        }
     }
 }

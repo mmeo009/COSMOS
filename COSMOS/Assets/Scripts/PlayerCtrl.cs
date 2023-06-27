@@ -87,7 +87,7 @@ public class PlayerCtrl : MonoBehaviour
         enemies = Physics2D.OverlapCircleAll(transform.position, 8f);
         foreach (Collider2D coll in enemies)
         {
-            if (coll.gameObject.tag == "Monster")
+            if (coll.gameObject.tag == "Monster" || coll.gameObject.tag == "Obstacle")
             {
                 coll.GetComponent<EnemyCtrl>().Defeat();
             }

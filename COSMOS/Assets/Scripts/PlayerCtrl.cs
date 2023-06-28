@@ -21,6 +21,8 @@ public class PlayerCtrl : MonoBehaviour
     public LayerMask groundLayer;
 
     public int HP = 5;
+    private bool wait = false;
+    public float hpTimer = 1.0f;
 
     public Collider2D[] enemies;
     public float shoutTimer = 0;
@@ -35,12 +37,25 @@ public class PlayerCtrl : MonoBehaviour
     private void FixedUpdate()
     {
         if(shoutTimer >= 0)
-        shoutTimer -= Time.fixedDeltaTime;
+        {
+            shoutTimer -= Time.fixedDeltaTime;
+            this.GetComponent<HP>().UpdateShoutBar();
+        }
         anim.SetFloat("Speed", GM.speed + 1);
 
         if(this.transform.position.y <= -7)
         {
             GetDMG(5);
+        }
+
+        if(wait == true)
+        {
+            hpTimer -= Time.fixedDeltaTime;
+        }
+        if(hpTimer <= 0)
+        {
+            wait = false;
+            hpTimer = 1.0f;
         }
     }
 
@@ -103,9 +118,12 @@ public class PlayerCtrl : MonoBehaviour
     public void GetDMG(int dmg)
     {
         audioSource.PlayOneShot(getDmg);
-        HP -= dmg;
+        if(wait == false)
+        {
+            HP -= dmg;
+            wait = true;
+        }
         this.GetComponent<HP>().currentHP = HP;
-        Debug.Log(HP);
         this.GetComponent<HP>().UpdateHPBar();
         if (HP <= 0)
         {

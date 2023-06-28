@@ -23,7 +23,14 @@ public class EnemyCtrl : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            collision.GetComponent<PlayerCtrl>().GetDMG(1);
+            if(GameManager.Instance.dash == true)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                collision.GetComponent<PlayerCtrl>().GetDMG(1);
+            }
         }
     }
 }

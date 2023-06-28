@@ -42,7 +42,6 @@ public class GameManager : MonoBehaviour
                 dashTimer = 1.0f;
             }
         }
-
     }
 
     public void GameOver()
@@ -51,6 +50,7 @@ public class GameManager : MonoBehaviour
         {
             isGameOver = true;
             Debug.Log("Game Over");
+            Application.Quit();
         }
     }
 

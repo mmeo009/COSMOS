@@ -8,9 +8,9 @@ public class MapGenerator : MonoBehaviour
     public GameManager GM;
     public float speed;
     public int level;
-    private void Awake()
+    private void Start()
     {
-        GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
+        GM = GameManager.Instance;
         MapGen(level, 0);
         MapGen(level, 20);
         MapGen(level, 40);

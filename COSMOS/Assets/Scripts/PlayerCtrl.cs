@@ -13,7 +13,7 @@ public class PlayerCtrl : MonoBehaviour
 
    
 
-    public AudioClip shoutClip, jumpClip, dashClip;
+    public AudioClip shoutClip, jumpClip, dashClip, getDmg;
     private AudioSource audioSource;
     public float jumpForce = 5.324f;
     public int jumpCount = 0;
@@ -44,13 +44,6 @@ public class PlayerCtrl : MonoBehaviour
         }
     }
 
-   
-    
-   
-
-  
-        
-    
     private void Update()
     {
         isTouchingGround = Physics2D.OverlapCircle(this.transform.position, 1.8f, groundLayer);
@@ -109,10 +102,12 @@ public class PlayerCtrl : MonoBehaviour
     }
     public void GetDMG(int dmg)
     {
-        audioSource.PlayOneShot(shoutClip);
+        audioSource.PlayOneShot(getDmg);
         HP -= dmg;
+        this.GetComponent<HP>().currentHP = HP;
         Debug.Log(HP);
-        if(HP <= 0)
+        this.GetComponent<HP>().UpdateHPBar();
+        if (HP <= 0)
         {
             GM.GameOver();
         }

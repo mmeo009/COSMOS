@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     private void Update()
     {
         normalSpeed += 0.01f * Time.deltaTime;
@@ -42,8 +43,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        
-
     }
 
     public void GameOver()
@@ -54,4 +53,5 @@ public class GameManager : MonoBehaviour
             Debug.Log("Game Over");
         }
     }
+
 }
